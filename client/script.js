@@ -17,15 +17,17 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const username = document.getElementById("login-username").value;
     const password = document.getElementById("login-password").value;
-
+    const email = document.getElementById("login-email").value;
     try {
         const res = await fetch("http://localhost:9000/users/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, email , password })
         });
         const data = await res.json();
-        alert("Login response: " + JSON.stringify(data));
+        //alert("Login response: " + JSON.stringify(data));
+        localStorage.setItem("token",data.token);
+        window.location.href="dashboard.html";
     } catch (err) {
         alert("Error logging in");
         console.error(err);
@@ -46,8 +48,9 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
             body: JSON.stringify({ username, email, password })
         });
         const data = await res.json();
-        alert("Signup response: " + JSON.stringify(data));
-        localStorage.setItem("token",data.token);
+        alert("Signup successful! Please login now.");
+
+        toggleForm("login");
     } catch (err) {
         alert("Error signing up");
         console.error(err);
