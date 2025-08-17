@@ -1,0 +1,5 @@
+mail-server/.env
+mail-server/.idea/
+mail-server/target/
+spam-detector-service/.env
+spam-detector-service/venv
