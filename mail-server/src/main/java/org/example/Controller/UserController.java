@@ -1,10 +1,11 @@
 package org.example.Controller;
 
-import org.example.Configuration.EnvConfig;
+
 import org.example.Helper.JwtHelper;
 import org.example.Model.User;
 import org.example.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,8 @@ import io.jsonwebtoken.security.Keys;
 @RequestMapping("/users")
 public class UserController {
 
-    private String secretKey = EnvConfig.getSecretKey();
+    @Value("${app.secret-key}")
+    private String secretKey;
     @Autowired
     private UserRepository _repository;
     @PostMapping("/login")

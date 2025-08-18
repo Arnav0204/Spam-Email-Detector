@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  mail-server:
+    build:
+      context: ./mail-server
+    container_name: mail-server
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./mail-server/.env   # specific .env for mail-server
+    depends_on:
+      - spam-detector-service
+
+  spam-detector-service:
+    build:
+      context: ./spam-detector-service
+    container_name: spam-detector-service
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./spam-detector-service/.env   # specific .env for spam-detector

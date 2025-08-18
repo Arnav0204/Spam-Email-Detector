@@ -3,12 +3,13 @@ package org.example.Helper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.example.Configuration.EnvConfig;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Base64;
 
 public class JwtHelper {
-    private static String secretKey = EnvConfig.getSecretKey();
+    @Value("${app.secret-key}")
+    private static String secretKey;
     public static Claims ExtractTokenBody(String token){
         return Jwts.parser()
                 .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKey)))

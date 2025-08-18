@@ -2,7 +2,7 @@ package org.example.Controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.Configuration.EnvConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,9 @@ import java.util.Map;
 @RequestMapping("/email")
 public class EmailController {
     private HttpClient client;
-    private String url = EnvConfig.getApiUrl();
+
+    @Value("${app.api-url}")
+    private String url;
     public EmailController(HttpClient client){
         this.client=client;
     }
